@@ -1,0 +1,183 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="CREATE_TABLE_USERS_MIGRATION" author="kawe">
+        <createTable tableName="users">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="verified" type="INTEGER"/>
+            <column name="profile_picture" type="VARCHAR(255)"/>
+            <column name="ktp" type="VARCHAR(255)"/>
+            <column name="remember_token" type="VARCHAR(255)"/> 
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/> 
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_WALLETS" author="kawe">
+        <createTable tableName="wallets">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="balance" type="NUMERIC"/>
+            <column name="pin" type="VARCHAR(255)"/>
+            <column name="user_id" type="INTEGER"/>
+            <column name="card_number" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>            
+        </createTable>
+        <addForeignKeyConstraint baseTableName="wallets" baseColumnNames="user_id" constraintName="fk_users" referencedTableName="users" referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_TRANSACTION_TYPES" author="kawe">
+        <createTable tableName="transaction_types">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="action" type="VARCHAR(255)"/>
+            <column name="thumbnail" type="VARCHAR(255)"/> 
+            <column name="deleted_at" type="TIMESTAMP"/> 
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>  
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_PRODUCTS" author="kawe">
+        <createTable tableName="products">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="thumbnail" type="VARCHAR(255)"/>
+            <column name="price" type="numeric"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/> 
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_PAYMENT_METHODS" author="kawe">
+        <createTable tableName="payment_methods">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="thumbnail" type="VARCHAR(255)"/> 
+            <column name="status" type="VARCHAR(255)"/> 
+            <column name="deleted_at" type="TIMESTAMP"/> 
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>  
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_TRANSACTIONS" author="kawe">
+        <createTable tableName="transactions">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="INTEGER"/>
+            <column name="transaction_type_id" type="INTEGER"/>
+            <column name="payment_method_id" type="INTEGER"/>
+            <column name="product_id" type="INTEGER"/>
+            <column name="amount" type="NUMERIC"/>
+            <column name="transaction_code" type="VARCHAR(255)"/>
+            <column name="description" type="text"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="transactions" baseColumnNames="user_id" constraintName="fk_users" referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="transactions" baseColumnNames="transaction_type_id" constraintName="fk_transaction_type" referencedTableName="transaction_types" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="transactions" baseColumnNames="payment_method_id" constraintName="fk_payment_method" referencedTableName="payment_methods" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="transactions" baseColumnNames="product_id" constraintName="fk_product" referencedTableName="products" referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_TRANSFER_HISTORY" author="kawe">
+        <createTable tableName="transfer_histories">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sender_id" type="INTEGER" />
+            <column name="receiver_id" type="INTEGER" />
+            <column name="transaction_code" type="VARCHAR(255)" />
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="transfer_histories" baseColumnNames="sender_id" constraintName="fk_sender" referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="transfer_histories" baseColumnNames="receiver_id" constraintName="fk_receiver" referencedTableName="users" referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="CREATE_TABLE_TIPS" author="kawe">
+        <createTable tableName="tips">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column> 
+            <column name="title" type="SERIAL"/>
+            <column name="url" type="VARCHAR(255)"/>
+            <column name="thumbnail" type="VARCHAR(255)"/>
+            <column name="deleted_at" type="TIMESTAMP"/> 
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_ADMIN_USERS" author="kawe">
+        <createTable tableName="admin_users">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column> 
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_OPERATOR_CARD" author="kawe">
+        <createTable tableName="operator_cards">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="thumbnail" type="VARCHAR(255)"/>
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="CREATE_TABLE_DATA_PLANS" author="kawe">
+        <createTable tableName="data_plans">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="NUMERIC"/>
+            <column name="operator_card_id" type="INTEGER"/>
+            <column name="created_at" type="TIMESTAMP"/> 
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="data_plans" baseColumnNames="operator_card_id" constraintName="fk_operator_card" referencedTableName="operator_cards" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
