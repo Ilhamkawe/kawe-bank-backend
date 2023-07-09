@@ -1,7 +1,7 @@
 package com.example.kawebackend.controller;
 
-import com.example.kawebackend.dto.UserDTO;
 import com.example.kawebackend.dto.resbody.common.BaseResponse;
+import com.example.kawebackend.dto.resbody.user.UserDTO;
 import com.example.kawebackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/register")
-    public @ResponseBody ResponseEntity<BaseResponse<List<UserDTO>>>register(){
+    public @ResponseBody ResponseEntity<BaseResponse<List<UserDTO>>> register() {
         return null;
     }
 }

@@ -1,8 +1,8 @@
 package com.example.kawebackend.controller;
 
-import com.example.kawebackend.dto.UserDTO;
 import com.example.kawebackend.dto.resbody.common.BaseResponse;
 import com.example.kawebackend.dto.resbody.common.MetaResponse;
+import com.example.kawebackend.dto.resbody.user.UserDTO;
 import com.example.kawebackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +19,11 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public @ResponseBody ResponseEntity<BaseResponse<List<UserDTO>>> getUser(){
+    public @ResponseBody ResponseEntity<BaseResponse<List<UserDTO>>> getUser() {
         return ResponseEntity.ok(BaseResponse
                 .<List<UserDTO>>builder()
                 .meta(new MetaResponse("OK", HttpStatus.OK.value()))
-                .data(userService.getUser())
+                .data(userService.getUsersWithWallet())
                 .build());
     }
 
