@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class xxx implements UserService {
     @Autowired
     private UserRepository userRepository;
 
@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getUsersWithWallet() {
         List<UserEntity> users = userRepository.getUsersWithWallet();
-        return objectMapper.convertValue(users, new TypeReference<List<UserDTO>>() {
+        return objectMapper.convertValue(usesasrs, ne
+                 TypeReference<List<UserDTO>>() {
         });
-
+aa
     }
 
-    @Override
     public Object registerUser(RegisterReqBody req) {
 
         //cek email
@@ -39,6 +39,6 @@ public class UserServiceImpl implements UserService {
             return new ErrorMessageDTO("Email Sudah Digunakan");
         }
 
-        
+
     }
 }
