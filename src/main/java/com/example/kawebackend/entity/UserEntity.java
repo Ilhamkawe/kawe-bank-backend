@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class UserEntity {
     private static final long serialVersionUID = -2343243243242432341L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "name")
@@ -28,7 +29,7 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
     @Column(name = "verified")
-    private String verified;
+    private int verified;
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("user")
     private WalletEntity wallet;

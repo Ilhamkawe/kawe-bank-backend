@@ -1,12 +1,9 @@
 package com.example.kawebackend.repository;
 
-import com.example.kawebackend.dto.reqbody.UserReqBody;
-import com.example.kawebackend.dto.reqbody.wallet.WalletReqBody;
+import com.example.kawebackend.dto.reqbody.user.UserReqBody;
 import com.example.kawebackend.entity.UserEntity;
-import com.example.kawebackend.entity.WalletEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
@@ -21,8 +18,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT u FROM UserEntity u JOIN u.wallet w")
     List<UserEntity> getUsersWithWallet();
 
-    @Query(value = "SELECT  COUNT(u.email) FROM UserEntity u WHERE u.email = :email")
-    Integer isEmailExist();
+    @Query(value = "SELECT u FROM UserEntity u JOIN u.wallet WHERE u.id = :id")
+    UserEntity getUsersWithWalletById(@Param("id") int id);
+
+    @Query(value = "SELECT COUNT(u.email) > 0 FROM UserEntity u WHERE u.email = :email")
+    Boolean isEmailExist(@Param("email") String email);
+
+    @Query(value = "SELECT COUNT(u.username) > 0 FROM UserEntity u WHERE u.username = :username")
+    Boolean isUsernameExist(@Param("username") String username);
 
 //    @Modifying
 //    @Query(value = "INSERT INTO " +
@@ -30,4 +33,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 //            "VALUES(:#{user.name}, :#{user.email}, :#{user.username}, :#{user.password}, :#{user.verified}, :#{user.profilePicture})")
 //    UserEntity registerUser(@Param("user") UserReqBody user);
 
+//    @Query(value = "UPDATE UserEntity u SET u.name = :req ")
+//    Boolean updateUser(@Param("user")UserReqBody req)
 }

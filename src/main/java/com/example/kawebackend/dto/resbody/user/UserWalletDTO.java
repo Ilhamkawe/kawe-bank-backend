@@ -11,6 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserWalletDTO {
     private int balance;
-    private String ping;
+    private String pin;
     private String cardNumber;
 }

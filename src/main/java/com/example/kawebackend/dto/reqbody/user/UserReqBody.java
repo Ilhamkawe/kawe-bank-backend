@@ -1,4 +1,4 @@
-package com.example.kawebackend.dto.reqbody;
+package com.example.kawebackend.dto.reqbody.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -14,7 +14,7 @@ public class UserDTO {
     String name;
     String email;
     String username;
-    String verified;
+    int verified;
     UserWalletDTO wallet;
     String profilePicture;
 }

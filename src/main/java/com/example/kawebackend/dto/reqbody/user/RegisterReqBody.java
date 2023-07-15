@@ -11,8 +11,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RegisterReqBody {
     private String name;
+    private String username;
     private String email;
     private String password;
     private String profilePicture;
     private String pin;
+    private int verified;
 }
