@@ -27,6 +27,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT COUNT(u.username) > 0 FROM UserEntity u WHERE u.username = :username")
     Boolean isUsernameExist(@Param("username") String username);
 
+    @Query(value = "SELECT u FROM UserEntity u WHERE u.id = :id")
+    UserEntity getUserById(@Param("id") int id);
+
+    @Query(value = "SELECT u FROM UserEntity  u WHERE u.email = :email")
+    UserEntity getUserByEmail(@Param("email") String email);
 //    @Modifying
 //    @Query(value = "INSERT INTO " +
 //            "UserEntity(name, email, username, password, verified, profile_picture) " +

@@ -1,6 +1,6 @@
 package com.example.kawebackend.controller;
 
-import com.example.kawebackend.dto.reqbody.user.RegisterReqBody;
+import com.example.kawebackend.dto.reqbody.authentication.RegisterReqBody;
 import com.example.kawebackend.dto.resbody.common.BaseResponse;
 import com.example.kawebackend.service.UserService;
 import com.example.kawebackend.util.ApiResponseUtil;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("api/v1/engine")
 public class AuthenticationController {
+
     @Autowired
     private UserService userService;
 
@@ -28,4 +29,6 @@ public class AuthenticationController {
             return ApiResponseUtil.ErrorHandler(e, HttpStatus.NOT_FOUND, "GAGAL");
         }
     }
+
+    public @ResponseBody ResponseEntity<BaseResponse<?>> login(@Validated )
 }

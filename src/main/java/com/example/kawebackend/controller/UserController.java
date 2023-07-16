@@ -41,13 +41,13 @@ public class UserController {
         }
     }
 
-//    @PutMapping("/user/{id}")
-//    public @ResponseBody ResponseEntity<BaseResponse<?>> updateUser(@PathVariable int id, @RequestBody UserReqBody req){
-//        try {
-//
-//        }catch(Exception e){
-//            return ApiResponseUtil.ErrorHandler(e, HttpStatus.NOT_FOUND, "GAGAL");
-//        }
-//    }
+    @PutMapping("/user/{id}")
+    public @ResponseBody ResponseEntity<BaseResponse<?>> updateUser(@PathVariable int id, @RequestBody UserReqBody req){
+        try {
+            return ApiResponseUtil.SuccessHandler(userService.updateUser(id, req), "SUKSES");
+        }catch(Exception e){
+            return ApiResponseUtil.ErrorHandler(e, HttpStatus.NOT_FOUND, "GAGAL");
+        }
+    }
 
 }

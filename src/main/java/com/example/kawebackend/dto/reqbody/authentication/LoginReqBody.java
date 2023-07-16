@@ -1,15 +1,15 @@
-package com.example.kawebackend.dto.reqbody.user;
+package com.example.kawebackend.dto.reqbody.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-public class UserReqBody {
-    private String name;
+@AllArgsConstructor
+public class LoginReqBody {
     private String email;
+    private String password;
 }
