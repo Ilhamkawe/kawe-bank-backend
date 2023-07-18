@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @EnableJpaRepositories
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     @Query(value = "SELECT u FROM UserEntity u JOIN u.wallet w")
     List<UserEntity> getUsersWithWallet();
@@ -32,6 +32,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(value = "SELECT u FROM UserEntity  u WHERE u.email = :email")
     UserEntity getUserByEmail(@Param("email") String email);
+
+
 //    @Modifying
 //    @Query(value = "INSERT INTO " +
 //            "UserEntity(name, email, username, password, verified, profile_picture) " +

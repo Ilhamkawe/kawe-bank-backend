@@ -1,5 +1,6 @@
 package com.example.kawebackend.controller;
 
+import com.example.kawebackend.dto.reqbody.authentication.LoginReqBody;
 import com.example.kawebackend.dto.reqbody.authentication.RegisterReqBody;
 import com.example.kawebackend.dto.resbody.common.BaseResponse;
 import com.example.kawebackend.service.UserService;
@@ -30,5 +31,7 @@ public class AuthenticationController {
         }
     }
 
-    public @ResponseBody ResponseEntity<BaseResponse<?>> login(@Validated )
+    public @ResponseBody ResponseEntity<BaseResponse<?>> login(@Validated @RequestBody LoginReqBody req){
+        return null;
+    }
 }
