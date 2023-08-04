@@ -7,7 +7,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,17 +14,11 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class JwtAuthUtil {
-    private final static String secretKey = "bankkawe";
-    //    extract username dari token yang dikirimkan
-    public static String ExtractUsername(String token){
-        return ExtractClaim(token, Claims::getSubject);
-    }
-
+    private final static String secretKey = "2D4A614E645267556B58703273357638792F423F4428472B4B6250655368566D";
     // extract email dari token
     public static String ExtractEmail(String token){
         return ExtractClaim(token, Claims::getSubject);
     }
-
     //    parse semua claim jwt
     private static Claims ExtractAllClaims(String token){
         return Jwts.parserBuilder()
@@ -49,13 +42,12 @@ public class JwtAuthUtil {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(user.getName())
+                .setSubject(user.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 *24))
                 .signWith(GetSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-
     //    generate token berdasarkan user details
     public static String GenerateToken(UserEntity user){
         return GenerateToken(new HashMap<>(), user);
@@ -66,15 +58,13 @@ public class JwtAuthUtil {
     }
     //    validasi jwttoken
     public static boolean IsTokenValid(String token, UserEntity user){
-        String username = ExtractUsername(token);
-        return (username.equals(user.getName())) && !IsTokenExpired(token);
+        String email = ExtractEmail(token);
+        return (email.equals(user.getEmail())) && !IsTokenExpired(token);
     }
-
     //    extract data expire dari token
     public static Date ExtractExpiration(String token){
         return ExtractClaim(token, Claims::getExpiration);
     }
-
     //    validasi pakah token expire
     public static boolean IsTokenExpired(String token){
         return ExtractExpiration(token).before(new Date());

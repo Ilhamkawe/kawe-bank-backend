@@ -10,6 +10,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+
+
 
     @GetMapping("/users")
     public @ResponseBody ResponseEntity<BaseResponse<?>> getUsers() {
@@ -41,13 +45,15 @@ public class UserController {
         }
     }
 
-    @PutMapping("/user/{id}")
-    public @ResponseBody ResponseEntity<BaseResponse<?>> updateUser(@PathVariable int id, @RequestBody UserReqBody req){
+    @RequestMapping(method = {RequestMethod.PUT}, path = "/user/{id}")
+    public @ResponseBody ResponseEntity<BaseResponse<?>> Update(@PathVariable int id, @Validated @RequestBody UserReqBody req){
+        System.out.println("test");
         try {
-            return ApiResponseUtil.SuccessHandler(userService.updateUser(id, req), "SUKSES");
-        }catch(Exception e){
+            return ApiResponseUtil.SuccessHandler(
+                    userService.updateUser(
+                            id, req), "SUKSES");
+        } catch (Exception e) {
             return ApiResponseUtil.ErrorHandler(e, HttpStatus.NOT_FOUND, "GAGAL");
         }
     }
-
 }

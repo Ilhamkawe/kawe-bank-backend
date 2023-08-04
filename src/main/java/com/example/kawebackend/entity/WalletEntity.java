@@ -22,6 +22,7 @@ public class WalletEntity {
     private double balance;
     @Column(name="pin")
     private String pin;
+
     @OneToOne
     @JoinColumn(name = "user_id",insertable=false,updatable=false)
     private UserEntity user;

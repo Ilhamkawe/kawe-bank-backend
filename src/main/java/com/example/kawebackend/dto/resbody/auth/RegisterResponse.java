@@ -11,11 +11,14 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponse {
-    private String name;
-    private String email;
-    private String username;
-    private UserRole role;
-    private UserWalletDTO wallet;
-    private String token;
+public class RegisterResponse {
+    int id;
+    String name;
+    String email;
+    String username;
+    int verified;
+    UserWalletDTO wallet;
+    String profilePicture;
+    UserRole role;
+    String token;
 }

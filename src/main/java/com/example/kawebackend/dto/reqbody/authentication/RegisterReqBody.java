@@ -1,5 +1,6 @@
 package com.example.kawebackend.dto.reqbody.authentication;
 
+import com.example.kawebackend.enumerate.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,6 @@ public class RegisterReqBody {
     private String password;
     private String profilePicture;
     private String pin;
+    private UserRole role;
     private int verified;
 }

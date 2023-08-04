@@ -13,8 +13,14 @@ import com.example.kawebackend.entity.WalletEntity;
 @Repository
 @EnableJpaRepositories
 public interface WalletRepository extends JpaRepository<WalletEntity, Long> {
-
 //    @Query(value = "INSERT INTO WalletEntity(balance, pin, user_id, card_number) VALUES(:wallet.balance, :wallet.pin, :wallet.userId :wallet.cardNumber)")
 //    WalletEntity createWallet(@Param("wallet") WalletReqBody wallet);
+    @Query(value = "SELECT w.id,w.pin from WalletEntity w WHERE w.userId = :userId")
+    WalletEntity getPin(@Param("userId") int UserId);
 
+    @Query(value = "SELECT w.id,w.balance  FROM WalletEntity w WHERE w.userId = :userId")
+    WalletEntity getBalance(@Param("userId") int UserId);
+
+    @Query(value = "SELECT w FROM WalletEntity w WHERE w.id = :id")
+    WalletEntity getById(@Param("id") int id);
 }

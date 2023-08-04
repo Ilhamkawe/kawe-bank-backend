@@ -2,6 +2,22 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="CREATE_TABLE_WALLETS" author="kawe">
+        <createTable tableName="wallets">
+            <column name="id" type="SERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="balance" type="NUMERIC"/>
+            <column name="pin" type="VARCHAR(255)"/>
+            <column name="card_number" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
     <changeSet id="CREATE_TABLE_USERS_MIGRATION" author="kawe">
         <createTable tableName="users">
             <column name="id" type="SERIAL">
@@ -18,27 +34,12 @@
             <column name="verified" type="INTEGER"/>
             <column name="profile_picture" type="VARCHAR(255)"/>
             <column name="ktp" type="VARCHAR(255)"/>
+            <column name="wallet_id" type="INTEGER"/>
             <column name="remember_token" type="VARCHAR(255)"/> 
             <column name="created_at" type="TIMESTAMP"/> 
             <column name="updated_at" type="TIMESTAMP"/> 
         </createTable>
-    </changeSet>
-
-    <changeSet id="CREATE_TABLE_WALLETS" author="kawe">
-        <createTable tableName="wallets">
-            <column name="id" type="SERIAL">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="balance" type="NUMERIC"/>
-            <column name="pin" type="VARCHAR(255)"/>
-            <column name="user_id" type="INTEGER"/>
-            <column name="card_number" type="VARCHAR(255)">
-                <constraints unique="true" nullable="false"/>
-            </column>
-            <column name="created_at" type="TIMESTAMP"/> 
-            <column name="updated_at" type="TIMESTAMP"/>            
-        </createTable>
-        <addForeignKeyConstraint baseTableName="wallets" baseColumnNames="user_id" constraintName="fk_users" referencedTableName="users" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="users" baseColumnNames="wallet_id" constraintName="fk_wallet" referencedTableName="wallets" referencedColumnNames="id"/>
     </changeSet>
 
     <changeSet id="CREATE_TABLE_TRANSACTION_TYPES" author="kawe">
@@ -178,6 +179,13 @@
             <column name="updated_at" type="TIMESTAMP"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="data_plans" baseColumnNames="operator_card_id" constraintName="fk_operator_card" referencedTableName="operator_cards" referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="ALTER_TABLE_ADD_COLUMN_USER_ROLE" author="kawe">
+        <sql>CREATE TYPE roleEnum AS ENUM ('USER','ADMIN')</sql>
+        <addColumn tableName="users">
+            <column name="role" type="roleEnum"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

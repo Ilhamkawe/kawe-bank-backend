@@ -1,5 +1,6 @@
 package com.example.kawebackend.entity;
 
+import com.example.kawebackend.enumerate.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
@@ -39,6 +39,9 @@ public class UserEntity {
     private String ktp;
     @Column(name = "remember_token")
     private String rememberToken;
+    @Enumerated(EnumType.STRING)
+    @Column(name="role")
+    private UserRole role;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "updated_at")

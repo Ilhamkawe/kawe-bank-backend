@@ -10,11 +10,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @EnableJpaRepositories
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
-
+    Optional<UserEntity> findByEmail(String email);
     @Query(value = "SELECT u FROM UserEntity u JOIN u.wallet w")
     List<UserEntity> getUsersWithWallet();
 
