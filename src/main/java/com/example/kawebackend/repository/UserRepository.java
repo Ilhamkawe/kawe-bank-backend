@@ -34,7 +34,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Query(value = "SELECT u FROM UserEntity  u WHERE u.email = :email")
     UserEntity getUserByEmail(@Param("email") String email);
 
-
+    @Query(value = "SELECT u FROM UserEntity u INNER JOIN WalletEntity w ON u.id = w.userId WHERE w.cardNumber = :cardNo")
+    UserEntity getUserByCardNo(@Param("cardNo") String cardNo);
 //    @Modifying
 //    @Query(value = "INSERT INTO " +
 //            "UserEntity(name, email, username, password, verified, profile_picture) " +
