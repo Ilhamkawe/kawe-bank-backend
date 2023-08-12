@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @EnableJpaRepositories
-public interface TransferRepository extends JpaRepository<TransactionEntity, Integer> {
-//    Optional<TrasactionEntity> findById(int id);
-
+public interface TransactionRepository extends JpaRepository<TransactionEntity, Integer> {
+//    Optional<TransactionEntity> Sa
 }

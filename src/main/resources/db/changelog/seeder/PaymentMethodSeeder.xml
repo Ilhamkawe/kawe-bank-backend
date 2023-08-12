@@ -1,0 +1,25 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="data-seeding-payment-method" author="kawe">
+        <insert tableName="payment_methods">
+            <column name="name" value="Bank BNI"/>
+            <column name="code" value="bni_va"/>
+            <column name="status" value="active"/>
+        </insert>
+        <insert tableName="payment_methods">
+            <column name="name" value="Bank BCA"/>
+            <column name="code" value="bca_va"/>
+            <column name="status" value="active"/>
+        </insert>
+        <insert tableName="payment_methods">
+            <column name="name" value="Bank BRI"/>
+            <column name="code" value="bri_va"/>
+            <column name="status" value="active"/>
+        </insert>
+        <!-- dan seterusnya -->
+    </changeSet>
+
+</databaseChangeLog>

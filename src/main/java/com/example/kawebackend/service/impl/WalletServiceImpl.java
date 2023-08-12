@@ -1,8 +1,7 @@
 package com.example.kawebackend.service.impl;
 
-import com.example.kawebackend.dto.ErrorMessageDTO;
+import com.example.kawebackend.dto.ResMessageDTO;
 import com.example.kawebackend.dto.reqbody.wallet.UpdatePinReqBody;
-import com.example.kawebackend.dto.resbody.user.UserDTO;
 import com.example.kawebackend.dto.resbody.wallet.WalletDTO;
 import com.example.kawebackend.entity.UserEntity;
 import com.example.kawebackend.entity.WalletEntity;
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,16 +39,16 @@ public class WalletServiceImpl implements WalletService {
 
         // jika pin lama yang diinput tidak sama dengan pin di db
         if(!req.getPreviousPin().equals(wallet.getPin())){
-            return new ErrorMessageDTO("PIN lama tidak cocok");
+            return new ResMessageDTO("PIN lama tidak cocok");
         }
 
         // jika pin baru sama denegan pin didb (tidak ada perubahan)
         if(req.getNewPin().equals(wallet.getPin())){
-            return new ErrorMessageDTO("PIN baru tidak boleh sama dengan PIN lama");
+            return new ResMessageDTO("PIN baru tidak boleh sama dengan PIN lama");
         }
 
         if(authUser.getId() != wallet.getId()){
-            return new ErrorMessageDTO("wallet ini bukan milik user");
+            return new ResMessageDTO("wallet ini bukan milik user");
         }
 
         try {

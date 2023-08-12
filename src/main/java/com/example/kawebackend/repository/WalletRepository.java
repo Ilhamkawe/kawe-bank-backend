@@ -1,6 +1,8 @@
 package com.example.kawebackend.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
@@ -22,6 +24,17 @@ public interface WalletRepository extends JpaRepository<WalletEntity, Long> {
 
     @Query(value = "SELECT w.id,w.balance  FROM WalletEntity w WHERE w.userId = :userId")
     WalletEntity getBalance(@Param("userId") int UserId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE WalletEntity w SET w.balance = w.balance + :amount WHERE w.id = :walletId")
+    WalletEntity incrementBalance(@Param("walletId") int walletId, @Param("amount") double amount);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE WalletEntity w SET w.balance = w.balance - :amount WHERE w.id = :walletId")
+    WalletEntity decrementBalance(@Param("walletId") int walletId,@Param("amount") double amount);
+
 
     @Query(value = "SELECT w FROM WalletEntity w WHERE w.id = :id")
     WalletEntity getById(@Param("id") int id);

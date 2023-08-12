@@ -188,4 +188,8 @@
         </addColumn>
     </changeSet>
 
+    <include file="classpath:/db/changelog/seeder/TransactionTypeSeeder.xml"/>
+    <include file="classpath:/db/changelog/seeder/PaymentMethodSeeder.xml"/>
+    <include file="classpath:/db/changelog/seeder/OperatorCardSeeder.xml"/>
+    <include file="classpath:/db/changelog/seeder/DataPlanSeeder.xml"/>
 </databaseChangeLog>

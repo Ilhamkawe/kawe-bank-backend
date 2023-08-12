@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="data-seeding-operator-card" author="kawe">
+        <insert tableName="operator_cards">
+            <column name="name" value="Telkomsel"/>
+            <column name="status" value="active"/>
+            <column name="thumbnail" value="telkomsel.png"/>
+        </insert>
+        <insert tableName="operator_cards">
+            <column name="name" value="Indosat"/>
+            <column name="status" value="active"/>
+            <column name="thumbnail" value="indosat.png"/>
+        </insert>
+        <insert tableName="operator_cards">
+            <column name="name" value="Singtel"/>
+            <column name="status" value="active"/>
+            <column name="thumbnail" value="singtel.png"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

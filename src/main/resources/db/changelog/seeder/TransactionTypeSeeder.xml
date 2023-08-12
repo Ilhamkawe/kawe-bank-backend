@@ -1,0 +1,33 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="data-seeding-transaction-type" author="kawe">
+        <insert tableName="transaction_types">
+            <column name="name" value="Transfer"/>
+            <column name="code" value="transfer"/>
+            <column name="action" value="dr"/>
+
+        </insert>
+        <insert tableName="transaction_types">
+            <column name="name" value="Internet"/>
+            <column name="code" value="internet"/>
+            <column name="action" value="dr"/>
+
+        </insert>
+        <insert tableName="transaction_types">
+            <column name="name" value="Top Up"/>
+            <column name="code" value="top_up"/>
+            <column name="action" value="cr"/>
+
+        </insert><insert tableName="transaction_types">
+            <column name="name" value="Receive"/>
+            <column name="code" value="receive"/>
+            <column name="action" value="cr"/>
+
+        </insert>
+        <!-- dan seterusnya -->
+    </changeSet>
+
+</databaseChangeLog>

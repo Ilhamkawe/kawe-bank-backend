@@ -1,6 +1,6 @@
 package com.example.kawebackend.service.impl;
 
-import com.example.kawebackend.dto.ErrorMessageDTO;
+import com.example.kawebackend.dto.ResMessageDTO;
 import com.example.kawebackend.dto.reqbody.authentication.LoginReqBody;
 import com.example.kawebackend.dto.reqbody.authentication.RegisterReqBody;
 import com.example.kawebackend.dto.resbody.auth.LoginResponse;
@@ -43,14 +43,14 @@ public class AuthServiceImpl implements AuthService {
         req.setVerified(0);
         Boolean isEmailExist = userRepository.isEmailExist(req.getEmail());
         if (isEmailExist) {
-            return new ErrorMessageDTO("Email Sudah Digunakan");
+            return new ResMessageDTO("Email Sudah Digunakan");
         }
 
         req.setPassword(PasswordEncoderUtil.EncodePassword(req.getPassword()));
 
         Boolean isUsernameExist = userRepository.isUsernameExist(req.getUsername());
         if (isUsernameExist) {
-            return new ErrorMessageDTO("Username Sudah Digunakan");
+            return new ResMessageDTO("Username Sudah Digunakan");
         }
 
         WalletEntity walletData = new WalletEntity();
@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
                 String extension = ImageBase64Util.getFileExtension(req.getProfilePicture());
 
                 if(extension.equals("")){
-                    return new ErrorMessageDTO("Ekstensi gambar belum didukung");
+                    return new ResMessageDTO("Ekstensi gambar belum didukung");
                 }
 
                 String filename = UUID.randomUUID() + extension;
@@ -118,11 +118,11 @@ public class AuthServiceImpl implements AuthService {
         UserEntity user = userRepository.getUserByEmail(req.getEmail());
 
         if (user == null) {
-            return new ErrorMessageDTO("User Tidak Ditemukan");
+            return new ResMessageDTO("User Tidak Ditemukan");
         }
 
         if(!PasswordEncoderUtil.matchPassword(req.getPassword(), user.getPassword())){
-            return new ErrorMessageDTO("Password Salah");
+            return new ResMessageDTO("Password Salah");
         }
 
         LoginResponse res = objectMapper.convertValue(user, new TypeReference<LoginResponse>() {
